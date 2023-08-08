@@ -12,6 +12,7 @@ def get_user_by_username(username):
 
 def get_user(id):
     return User.query.get(id)
+    # sdfdjfsdj
 
 def get_all_users():
     return User.query.all()
