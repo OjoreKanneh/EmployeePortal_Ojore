@@ -1,0 +1,15 @@
+self service application that users are able to access and view personal information on their portal using an authentication given by them by their supervisor 
+these employees will then be able to see the amount of vacation days they have left on their record
+the users can also request vacation days from their manager above them and the manager could accept the request and manipulate the employee database on their dashboard
+allow managers to add new useres in their dashboard 
+
+
+
+This self-service application provides users with secure access to their personal information through a dedicated portal.Access is granted via authentication credentials
+issued by their respective supervisors. Within this portal, employees can conveniently access and review their individual records, including vital details such as vacation
+entitlement.The system furnishes employees with a clear overview of their remaining vacation days, enabling informed decision-making regarding time-off planning. Additionally,
+users possess the functionality to submit requests for vacation days directly to their supervising managers through the platform. Upon submission, managers have the authority
+to review, approve, and modify the employee database as necessary, all from their own managerial dashboard.The managerial dashboard extends further utility by affording
+managers the capability to initiate the addition of new users to the system. This streamlined process ensures efficient integration of new employees into the self-service
+application.In essence, this platform enhances organizational efficiency by granting employees access to their personal information, facilitating vacation day requests, and
+enabling supervisors to manage these requests and maintain the employee database with ease.
