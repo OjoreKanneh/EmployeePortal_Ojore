@@ -13,7 +13,7 @@ class Manager(db.Model):
     contact=db.Column(db.Integer, nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
     managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
-    address==db.Column(db.String)
+    address=db.Column(db.String(100), unique=False, nullable=False)
     
     
     def set_password(self, password):
