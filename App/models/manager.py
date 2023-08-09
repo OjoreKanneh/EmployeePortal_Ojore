@@ -4,7 +4,7 @@ from App.database import db
 from flask_login import UserMixin
 
 
-class Manager(db.Model):
+class Manager(db.Model, UserMixin):
         __tablename__ = 'managers'
 
         id = db.Column(db.Integer, primary_key=True)

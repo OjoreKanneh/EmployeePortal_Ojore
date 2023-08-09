@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
     .signup-box {
-      background-color: #f7ecec;
+      background-color: #d7f0ed;
       padding: 100px;
       border-radius: 50px;
       margin-top: 30px;
@@ -16,10 +16,13 @@
     .signup-box input {
       margin-bottom: 10px;
     }
+    .green-nav {
+      background-color: #338a7b; /* Adjust the color as needed */
+    }
   </style>
 </head>
 <body>
-  <nav>
+  <nav class="green-nav">
     <div class="nav-wrapper">
       <div class="container">
         <a href="#" class="brand-logo">Manager-Sign Up </a>
@@ -30,29 +33,29 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m6 offset-m3 signup-box">
-        <form>
+        <form method="POST">
           <div class="input-field">
-            <input id="username" type="text" class="validate">
+            <input id="username" type="text" class="validate" name="username">
             <label for="username">Username</label>
           </div>
           <div class="input-field">
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" class="validate" name="password">
             <label for="password">Password</label>
           </div>
           <div class="input-field">
-            <input id="jobTitle" type="text" class="validate">
+            <input id="jobTitle" type="text" class="validate" name="jobTitle">
             <label for="jobTitle">Job Title</label>
           </div>
           <div class="input-field">
-            <input id="contact" type="text" class="validate">
+            <input id="contact" type="number" class="validate" name="contact">
             <label for="contact">Contact</label>
           </div>
           <div class="input-field">
-            <input id="address" type="text" class="validate">
+            <input id="address" type="text" class="validate" name="address">
             <label for="address">Address</label>
           </div>
           <div class="center-align">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Sign Up
+            <button class="btn waves-effect waves-light" type="submit" name="action" value="signup">Sign Up
               <i class="material-icons right"></i>
             </button>
           </div>

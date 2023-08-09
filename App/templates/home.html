@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the App</title>
+  <!-- Include Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .container {
+      margin-top: 100px;
+    }
+    .small-card {
+      padding: 80px; /* Adjust padding as needed */
+      max-width: 700px; /* Limit card width */
+      margin: 0 auto; /* Center the card horizontally */
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 offset-m3">
+        <div class="card-panel small-card">
+          <h4 class="center-align">Welcome to the App</h4>
+          <p class="center-align">
+            This is an Employee Self-Service Application that empowers employees with convenient access to their information and services. Employees can use the app to:
+          </p>
+          <ul class="browser-default center-align">
+            <li>Check their personal and employment information</li>
+            <li>Submit requests for different types of sick leaves</li>
+            <!-- Add more features here -->
+          </ul>
+          <div class="center">
+            <a class="waves-effect waves-light btn" href="/login">Login</a>
+            <span style="margin: 0 10px;">or</span>
+            <a class="waves-effect waves-light btn" href="/signup">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

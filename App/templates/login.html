@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
     .login-box {
-      background-color: #f7ecec;
+      background-color: #d7f0ed;
       padding: 100px;
       border-radius: 50px;
       margin-top: 30px;
@@ -16,10 +16,13 @@
     .login-box input {
       margin-bottom: 10px;
     }
+    .green-nav {
+      background-color: #338a7b; /* Adjust the color as needed */
+    }
   </style>
 </head>
 <body>
-  <nav>
+  <nav class="green-nav">
     <div class="nav-wrapper">
       <div class="container">
         <a href="#" class="brand-logo">Manager-Login</a>
@@ -30,7 +33,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m6 offset-m3 login-box">
-        <form>
+        <form method="POST">
           <div class="input-field">
             <input id="username" type="text" class="validate">
             <label for="username">Username</label>
