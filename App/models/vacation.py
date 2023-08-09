@@ -11,7 +11,7 @@ class Vacation(db.Model):
     status = db.Column(db.String(20), default='Pending')
 
     employee_id=db.Column(db.Integer, db.ForeignKey('employees.id'), unique=True)
-    employee=db.relationship('Emplolyee',back_populates='vacation')
+    employee=db.relationship('Employee',back_populates='vacation')
     
     # user = db.relationship('User', backref='vacations')
 
