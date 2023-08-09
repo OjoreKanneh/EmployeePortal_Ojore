@@ -5,7 +5,7 @@ from flask_login import UserMixin
 
 
 class Manager(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'managers'
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
@@ -14,6 +14,7 @@ class Manager(db.Model):
     password = db.Column(db.String(128), nullable=False)
     managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
     address=db.Column(db.String(100), unique=False, nullable=False)
+    employees=db.relationship('Employee', back_populates='manager', cascade='all, delete=orphan')
     
     
     def set_password(self, password):
