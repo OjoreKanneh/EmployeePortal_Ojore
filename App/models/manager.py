@@ -8,10 +8,10 @@ class Manager(db.Model, UserMixin):
         __tablename__ = 'managers'
 
         id = db.Column(db.Integer, primary_key=True)
-        username = db.Column(db.String(100), unique=True, nullable=False)
+        username = db.Column(db.String(100) , nullable=False)
         password = db.Column(db.String(128), nullable=False)
-        jobTitle=db.Column(db.String(100),unique=False, nullable=False)
-        contact=db.Column(db.Integer, nullable=False, unique=True)
+        jobTitle=db.Column(db.String(100), nullable=False)
+        contact=db.Column(db.Integer, nullable=False)
 
         managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
         address=db.Column(db.String(100), unique=False, nullable=False)
