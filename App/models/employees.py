@@ -10,15 +10,14 @@ class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     manager_id=db.Column(db.Integer, db.ForeignKey('managers.id'))
-    manager=db.relationship('Manager', back_populates='employees')
+    # manager = db.relationship('Manager', backref='manager_employees')
     jobTitle=db.Column(db.String(100),unique=False, nullable=False)
     contact=db.Column(db.Integer, nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
     managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
     address=db.Column(db.String(100), unique=False, nullable=False)
-    employees=db.relationship('Employee', back_populates='manager', cascade='all, delete=orphan')
 
-    vacationDays= db.relationship('Vacation', back_populates='employee', uselist=False, cascade='all, delete-orphans')
+    vacationDays= db.relationship('Vacation', backref='user', lazy=True)
     
     
     def set_password(self, password):

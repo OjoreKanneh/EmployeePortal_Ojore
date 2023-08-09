@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Include Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    .login-box {
+      background-color: #f7ecec;
+      padding: 100px;
+      border-radius: 50px;
+      margin-top: 30px;
+    }
+    .login-box input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <div class="container">
+        <a href="#" class="brand-logo">Manager-Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 offset-m3 login-box">
+        <form>
+          <div class="input-field">
+            <input id="username" type="text" class="validate">
+            <label for="username">Username</label>
+          </div>
+          <div class="input-field">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+          <div class="center-align">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Login
+              <i class="material-icons right"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,30 +1,37 @@
-from App.models import User
+from App.models import User, Manager,Employee
 from App.database import db
 
-from App.manager import Manager
-from App. employees import Employee
+# from App.models import Manager
+# from App.models import Employee
 
 
-def create_manager(username, password):
-    newuser = User(username=username, password=password)
-    db.session.add(newuser)
+def create_manager(username, password,jobTitle,contact,address):
+    newManager = Manager(username=username, password=password, jobTitle=jobTitle,
+    contact=contact,managerCheck=True, address=address)
+    db.session.add(newManager)
     db.session.commit()
-    return newuser
+    return newManager
 
-def get_user_by_username(username):
-    return User.query.filter_by(username=username).first()
+def get_manager_by_username(username):
+    return Manager.query.filter_by(username=username).first()
 
-def get_user(id):
-    return User.query.get(id)
+def get_manager(id):
+    return manager.query.get(id)
     # sdfdjfsdj
 
-def get_all_users():
-    return User.query.all()
+def get_all_managers():
+    return Manager.query.all()
 
-def get_all_users_json():
-    users = User.query.all()
-    if not users:
-        return []
-    users = [user.get_json() for user in users]
-    return users
+# def get_all_users_json():
+#     users = User.query.all()
+#     if not users:
+#         return []
+#     users = [user.get_json() for user in users]
+#     return users
 
+def get_all_managers_json():
+    managers=Manager.query.all()
+    if not managers:
+        return[]
+    managers=[manager.get_json() for manager in managers]
+    return managers
