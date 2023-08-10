@@ -2,11 +2,12 @@ from flask import Blueprint, redirect, render_template, request, send_from_direc
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField,SubmitField
 # from wtforms.validators import InputRequired, length, ValidationError
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
-from App.models import db
+from App.models import db,Manager
 # from App.controllers import create_user 
 from App.controllers import create_manager
 
@@ -38,17 +39,6 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 def signup():
     if request.method == 'POST':
         data=request.form
-        # username = request.form.get('username')
-        # password = request.form.get('password')
-        # job_title = request.form.get('job_title')
-        # contact = request.form.get('contact')
-        # # manager_check = True if request.form.get('manager_check') else False
-        # address = request.form.get('address')
-        # print("Received username from form:", username)
-        # print("Received password from form:", password)
-        # print("Received job_title from form:", job_title)
-        # print("Received contact from form:", contact)
-        # print("Received address from form:", address)
         print("Received form data:", data)
         newManager=create_manager(data['username'], data['password'], data['jobTitle'], data['contact'], data['address'])
         # print(username)
@@ -59,12 +49,19 @@ def signup():
 @index_views.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        if user and user.password == password:
-            login_user(user)
+        data=request.form
+        print("Received form data:", data)
+        user = Manager.query.filter_by(username=data['username']).first()
+
+        if user and check_password_hash(user.password,data['password']):
+        #     # login_user(user)
+            flash('You are logged in!', 'success')
+            print("your are logged in")
             return redirect('/index')
+            if user.managerCheck==True:
+                return redirect('/index')
+            else:
+                return redirect ('/hello')
         else:
             flash('Invalid username or password. Please try again.', 'danger')
 
@@ -78,6 +75,10 @@ def login():
 def index_page():
     return render_template('index.html')
 
+
+@index_views.route('/hello', methods=['GET'])
+def hello_world():
+    return "Hello, World!"
 
 
 
