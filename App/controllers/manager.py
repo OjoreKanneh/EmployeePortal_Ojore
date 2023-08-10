@@ -35,3 +35,11 @@ def get_all_managers_json():
         return[]
     managers=[manager.get_json() for manager in managers]
     return managers
+
+def get_manager_by_username_json(username):
+    manager = Manager.query.filter_by(username=username).first()
+    
+    if manager:
+        return manager.get_json()  # Assuming you have a 'get_json' method in your Manager model
+    else:
+        return {} 

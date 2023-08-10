@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}Manager Dashboard{% endblock %}
+{% block page %}Manager Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col s12">
+    <h5>Manager Information</h5>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>ID </th>
+          <th>Username</th>
+          <th>Job Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for manager in managers %}
+        <tr>
+          <td>{{ manager.id }}</td>
+          <td>{{ manager.username }}</td>
+          <td>{{ manager.jobTitle }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify, url_for, flash
+from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify, url_for, flash,session
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField,SubmitField
 # from wtforms.validators import InputRequired, length, ValidationError
@@ -8,8 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
 from App.models import db,Manager
-# from App.controllers import create_user 
-from App.controllers import create_manager
+from App.controllers import create_user 
+from App.controllers import get_all_managers_json,get_manager_by_username_json
 
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
@@ -57,9 +57,10 @@ def login():
         #     # login_user(user)
             flash('You are logged in!', 'success')
             print("your are logged in")
-            return redirect('/index')
+            # return redirect('/index')
             if user.managerCheck==True:
-                return redirect('/index')
+                session['username'] = user.username # Store user info in the session
+                return redirect('/managerDashboard')
             else:
                 return redirect ('/hello')
         else:
@@ -76,9 +77,27 @@ def index_page():
     return render_template('index.html')
 
 
-@index_views.route('/hello', methods=['GET'])
-def hello_world():
-    return "Hello, World!"
+@index_views.route('/managerDashboard', methods=['GET'])
+def managerDash():
+    user = session.get('username')  # Retrieve user info from the session
+
+    print("user is ", user)
+    manager = Manager.query.filter_by(username=user).first()
+    if manager and manager.managerCheck==True:
+        # manager = {
+        #     'id': manager.id,
+        #     'username': manager.username,
+        #     'jobTitle': manager.jobTitle
+        # }
+        # manager_info= get_all_managers_json()
+        manager=get_manager_by_username_json(manager.username)
+        print (manager)
+        # print (manager)
+        return render_template('managerDashboard.html', manager=manager)
+    else:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect('/login')
+    #  return render_template('managerdashboard.html', managers=managers)
 
 
 
