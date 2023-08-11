@@ -37,20 +37,21 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
 @index_views.route('/signup', methods=['GET', 'POST'])
 def signup():
+    form_data = {}
     if request.method == 'POST':
         data=request.form
         print("Received form data:", data)
         existing_manager = Manager.query.filter_by(email=data['email']).first()
         if existing_manager:
             flash('An account with this email already exists. Please use a different email.', 'danger')
-            return render_template('signup.html', form_data=data)  # Redirect back to the signup page
-
+            form_data=data
+            return render_template('signup.html', form_data=form_data)  # Redirect back to the signup page
 
         newManager=create_manager(data['username'], data['password'], data['jobTitle'], data['contact'], data['address'],data['firstName'],data['lastName'],data['email'])
         # print(username)
         flash('Manager account created successfully!', 'success')
         return redirect('/login')
-    return render_template('signup.html')
+    return render_template('signup.html',form_data = form_data )
 
 @index_views.route('/login', methods=['GET', 'POST'])
 def login():

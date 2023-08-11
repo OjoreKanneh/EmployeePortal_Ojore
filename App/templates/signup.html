@@ -57,15 +57,15 @@
       <div class="col s12 m6 offset-m3 signup-box">
         <form method="POST">
           <div class="input-field">
-            <input id="firstName" type="text" class="validate" name="firstName" value="{{ form_data.get('firstName') }}">
+            <input id="firstName" type="text" class="validate" name="firstName" value="{{ form_data.get('firstName') or '' }}">
             <label for="firstName">First Name</label>
           </div>
           <div class="input-field">
-            <input id="lastName" type="text" class="validate" name="lastName" value="{{ form_data.get('lastName') }}">
+            <input id="lastName" type="text" class="validate" name="lastName" value="{{ form_data.get('lastName') or '' }}">
             <label for="lastName">Last Name</label>
           </div>
           <div class="input-field">
-            <input id="username" type="text" class="validate" name="username" value="{{ form_data.get('username') }}">
+            <input id="username" type="text" class="validate" name="username" value="{{ form_data.get('username') or '' }}">
             <label for="username">Username</label>
           </div>
           <div class="input-field">
@@ -73,19 +73,19 @@
             <label for="email">Email</label>
           </div>
           <div class="input-field">
-            <input id="password" type="password" class="validate" name="password"value="{{ form_data.get('password') }}">
+            <input id="password" type="password" class="validate" name="password"value="{{ form_data.get('password') or '' }}">
             <label for="password">Password</label>
           </div>
           <div class="input-field">
-            <input id="jobTitle" type="text" class="validate" name="jobTitle" value="{{ form_data.get('jobTitle') }}">
+            <input id="jobTitle" type="text" class="validate" name="jobTitle" value="{{ form_data.get('jobTitle') or '' }}">
             <label for="jobTitle">Job Title</label>
           </div>
           <div class="input-field">
-            <input id="contact" type="number" class="validate" name="contact" value="{{ form_data.get('contact') }}">
+            <input id="contact" type="number" class="validate" name="contact" value="{{ form_data.get('contact') or '' }}">
             <label for="contact">Contact</label>
           </div>
           <div class="input-field">
-            <input id="address" type="text" class="validate" name="address" value="{{ form_data.get('address') }}">
+            <input id="address" type="text" class="validate" name="address" value="{{ form_data.get('address') or '' }}">
             <label for="address">Address</label>
           </div>
           <div class="center-align">
