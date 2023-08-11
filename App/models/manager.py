@@ -16,6 +16,9 @@ class Manager(db.Model, UserMixin):
         managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
         address=db.Column(db.String(100), unique=False, nullable=False)
         employees=db.relationship('Employee', backref='manager', lazy=True)
+        firstName=db.Column(db.String(100) , nullable=False)
+        lastName=db.Column(db.String(100) , nullable=False)
+        email = db.Column(db.String(100), unique=True, nullable=False)
 
     
     # def set_password(self, password):
@@ -23,13 +26,16 @@ class Manager(db.Model, UserMixin):
 
 #     def check_password(self, password):
         # return check_password_hash(self.password_hash, password)
-        def __init__(self, username, password, jobTitle, contact, managerCheck, address):
+        def __init__(self, username, password, jobTitle, contact, managerCheck, address,firstName,lastName,email):
                 self.username = username
                 self.password = generate_password_hash(password)  # Hash the password
                 self.jobTitle = jobTitle
                 self.contact = contact
                 self.managerCheck = managerCheck
                 self.address = address
+                self.firstName=firstName
+                self.lastName=lastName   
+                self.email=email    
 
 
         def check_password(self, password):
@@ -47,7 +53,10 @@ class Manager(db.Model, UserMixin):
                 'contact': self.contact,
                 'managerCheck': self.managerCheck,
                 'address': self.address,
-                'employees': [employee.toJSON() for employee in self.employees]
+                'employees': [employee.toJSON() for employee in self.employees],
+                'firstName':self.firstName,
+                'lastName':self.lastName,
+                'email':self.email
                 }
         
 
