@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
 from App.models import db,Manager
-from App.controllers import create_user 
+from App.controllers import create_user, create_manager
 from App.controllers import get_all_managers_json,get_manager_by_username_json
 
 
@@ -40,7 +40,13 @@ def signup():
     if request.method == 'POST':
         data=request.form
         print("Received form data:", data)
-        newManager=create_manager(data['username'], data['password'], data['jobTitle'], data['contact'], data['address'])
+        existing_manager = Manager.query.filter_by(email=data['email']).first()
+        if existing_manager:
+            flash('An account with this email already exists. Please use a different email.', 'danger')
+            return render_template('signup.html', form_data=data)  # Redirect back to the signup page
+
+
+        newManager=create_manager(data['username'], data['password'], data['jobTitle'], data['contact'], data['address'],data['firstName'],data['lastName'],data['email'])
         # print(username)
         flash('Manager account created successfully!', 'success')
         return redirect('/login')
@@ -51,7 +57,7 @@ def login():
     if request.method == 'POST':
         data=request.form
         print("Received form data:", data)
-        user = Manager.query.filter_by(username=data['username']).first()
+        user = Manager.query.filter_by(email=data['email']).first()
 
         if user and check_password_hash(user.password,data['password']):
         #     # login_user(user)
@@ -64,9 +70,10 @@ def login():
             else:
                 return redirect ('/hello')
         else:
-            flash('Invalid username or password. Please try again.', 'danger')
+            flash('Invalid email or passwordd. Please try again.', 'danger')
 
-        # form=LoginForm()
+        # form=LoginForm() 
+
     return render_template('login.html')
 
 
@@ -74,8 +81,39 @@ def login():
 
 @index_views.route('/index', methods=['GET'])
 def index_page():
+    
     return render_template('index.html')
 
+
+# @index_views.route('/managerDashboard', methods=['GET'])
+# def managerDash():
+#     user = session.get('username')  # Retrieve user info from the session
+
+#     print("user is ", user)
+#     manager = Manager.query.filter_by(username=user).first()
+#     # print(manager)
+#     if manager and manager.managerCheck==True:
+#         managerr=[]
+#         all_managers = Manager.query.all()
+        
+#         for m in all_managers:
+#             manager_dict = {
+#                 'id': m.id,
+#                 'username': m.username,
+#                 'jobTitle': m.jobTitle,
+#                 'contact': m.contact,
+#                 'address':m.address,
+#                 'employees': m.employees
+#             }
+#             managerr.append(manager_dict)
+
+#         print (managerr)
+#         # print (manager)
+#         return render_template('managerDashboard.html', managerr=managerr)
+#     else:
+#         flash('You are not authorized to access this page, please login again.', 'danger')
+#         return redirect('/login')
+#     #  return render_template('managerdashboard.html', managers=managers)
 
 @index_views.route('/managerDashboard', methods=['GET'])
 def managerDash():
@@ -83,26 +121,31 @@ def managerDash():
 
     print("user is ", user)
     manager = Manager.query.filter_by(username=user).first()
+    # print(manager)
     if manager and manager.managerCheck==True:
-        # manager = {
-        #     'id': manager.id,
-        #     'username': manager.username,
-        #     'jobTitle': manager.jobTitle
-        # }
-        # manager_info= get_all_managers_json()
-        manager=get_manager_by_username_json(manager.username)
-        print (manager)
+        managerr = {
+            'id': manager.id,
+            'username': manager.username,
+            'jobTitle': manager.jobTitle,
+            'contact': manager.contact,
+            'address': manager.address,
+            'employees': manager.employees,
+            'firstName': manager.firstName,
+            'lastName': manager.lastName
+        }
+        print (managerr)
         # print (manager)
-        return render_template('managerDashboard.html', manager=manager)
+        return render_template('managerDashboard.html', managerr=managerr)
     else:
-        flash('You are not authorized to access this page.', 'danger')
+        flash('You are not authorized to access this page, please login again.', 'danger')
         return redirect('/login')
-    #  return render_template('managerdashboard.html', managers=managers)
 
 
 
 @index_views.route('/', methods=['GET'])
 def home_page():
+    session.clear()
+    print("Session contents:", session)
     return render_template('home.html')
 
 @index_views.route('/init', methods=['GET'])
