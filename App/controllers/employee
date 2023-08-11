@@ -1,9 +1,0 @@
-from App.models import User, Manager,Employee
-from App.database import db
-
-def create_employee(manager, username, password, jobTitle, contact, address):
-    new_employee = Employee(username=username, password=password, jobTitle=jobTitle,
-                            contact=contact, address=address, manager=manager)
-    db.session.add(new_employee)
-    db.session.commit()
-    return new_employee

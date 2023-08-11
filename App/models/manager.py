@@ -53,7 +53,7 @@ class Manager(db.Model, UserMixin):
                 'contact': self.contact,
                 'managerCheck': self.managerCheck,
                 'address': self.address,
-                'employees': [employee.toJSON() for employee in self.employees],
+                'employees': [employee.get_json() for employee in self.employees],
                 'firstName':self.firstName,
                 'lastName':self.lastName,
                 'email':self.email
