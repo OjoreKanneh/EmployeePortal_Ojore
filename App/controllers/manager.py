@@ -5,9 +5,9 @@ from App.database import db
 # from App.models import Employee
 
 
-def create_manager(username, password,jobTitle,contact,address):
+def create_manager(username, password,jobTitle,contact,address,firstName,lastName,email):
     newManager = Manager(username=username, password=password, jobTitle=jobTitle,
-    contact=contact,managerCheck=True, address=address)
+    contact=contact,managerCheck=True, address=address,firstName=firstName,lastName=lastName,email=email)
     db.session.add(newManager)
     db.session.commit()
     return newManager
