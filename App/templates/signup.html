@@ -7,6 +7,14 @@
   <!-- Include Materialize CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
+    .flash-messages {
+      padding: 10px;
+      background-color: #ffebee; /* Light red color, you can adjust this */
+      color: #c62828; /* Dark red color, you can adjust this */
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
     .signup-box {
       background-color: #d7f0ed;
       padding: 100px;
@@ -30,28 +38,54 @@
     </div>
   </nav>
 
+
+
   <div class="container">
+    <!-- Flashed messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-messages">
+      {% for message in messages %}
+      <p>{{ message }}</p>  
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
     <div class="row">
       <div class="col s12 m6 offset-m3 signup-box">
         <form method="POST">
           <div class="input-field">
-            <input id="username" type="text" class="validate" name="username">
+            <input id="firstName" type="text" class="validate" name="firstName" value="{{ form_data.get('firstName') }}">
+            <label for="firstName">First Name</label>
+          </div>
+          <div class="input-field">
+            <input id="lastName" type="text" class="validate" name="lastName" value="{{ form_data.get('lastName') }}">
+            <label for="lastName">Last Name</label>
+          </div>
+          <div class="input-field">
+            <input id="username" type="text" class="validate" name="username" value="{{ form_data.get('username') }}">
             <label for="username">Username</label>
           </div>
           <div class="input-field">
-            <input id="password" type="password" class="validate" name="password">
+            <input id="email" type="email" class="validate" name="email" >
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field">
+            <input id="password" type="password" class="validate" name="password"value="{{ form_data.get('password') }}">
             <label for="password">Password</label>
           </div>
           <div class="input-field">
-            <input id="jobTitle" type="text" class="validate" name="jobTitle">
+            <input id="jobTitle" type="text" class="validate" name="jobTitle" value="{{ form_data.get('jobTitle') }}">
             <label for="jobTitle">Job Title</label>
           </div>
           <div class="input-field">
-            <input id="contact" type="number" class="validate" name="contact">
+            <input id="contact" type="number" class="validate" name="contact" value="{{ form_data.get('contact') }}">
             <label for="contact">Contact</label>
           </div>
           <div class="input-field">
-            <input id="address" type="text" class="validate" name="address">
+            <input id="address" type="text" class="validate" name="address" value="{{ form_data.get('address') }}">
             <label for="address">Address</label>
           </div>
           <div class="center-align">
@@ -60,6 +94,9 @@
             </button>
           </div>
         </form>
+
+        <p class="center-align">Already have an account? <a href="/login">Login here</a></p>
+        <p class="center-align">Return to <a href="/">Home</a></p>
       </div>
     </div>
   </div>
