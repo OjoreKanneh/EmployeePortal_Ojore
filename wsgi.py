@@ -16,7 +16,7 @@ migrate = get_migrate(app)
 def initialize():
     db.drop_all()
     db.create_all()
-    create_manager('bob', 'bobpass','supervisor','2732761','street')
+    create_manager('bob', 'bobpass','supervisor','2732761','street','Bob','Smith','bob@tis.com')
     print('database intialized')
 
 '''
