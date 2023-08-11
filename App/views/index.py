@@ -106,7 +106,8 @@ def employeeCreate():
                     'address': manager.address,
                     'employees': manager.employees,
                     'firstName': manager.firstName,
-                    'lastName': manager.lastName
+                    'lastName': manager.lastName,
+                    'email':manager.email
                 }
             email_error = 'An account with this email already exists. Please use a different email.'
             # flash('An account with this email already exists. Please use a different email.', 'danger')
@@ -135,7 +136,8 @@ def managerDash():
             'address': manager.address,
             'employees': manager.employees,
             'firstName': manager.firstName,
-            'lastName': manager.lastName
+            'lastName': manager.lastName,
+            'email':manager.email
         }
         print (managerr)
         # print (manager)
