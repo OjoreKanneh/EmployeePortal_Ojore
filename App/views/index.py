@@ -7,8 +7,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
-from App.models import db,Manager
-from App.controllers import create_user, create_manager
+from App.models import db,Manager,Employee
+from App.controllers import create_user, create_manager,create_employee
 from App.controllers import get_all_managers_json,get_manager_by_username_json
 
 
@@ -84,37 +84,41 @@ def login():
 def index_page():
     
     return render_template('index.html')
+    
+
+@index_views.route('/create_employee', methods=['POST'])
+def employeeCreate():
+    user = session.get('username')
+    print("user iss ", user)
+    form_data={}
+    if request.method=='POST':
+        data=request.form
+        print("Received form data:", data)
+        existing_employee = Employee.query.filter_by(email=data['email']).first()
+        if existing_employee:
+            manager = Manager.query.filter_by(username=user).first()
+            if manager and manager.managerCheck==True:
+                managerr = {
+                    'id': manager.id,
+                    'username': manager.username,
+                    'jobTitle': manager.jobTitle,
+                    'contact': manager.contact,
+                    'address': manager.address,
+                    'employees': manager.employees,
+                    'firstName': manager.firstName,
+                    'lastName': manager.lastName
+                }
+            email_error = 'An account with this email already exists. Please use a different email.'
+            # flash('An account with this email already exists. Please use a different email.', 'danger')
+            # form_data=data
+            return render_template('managerDashboard.html',email_error=email_error,managerr=managerr)
+
+        newEmployee=create_employee(data['username'],data['manager_id'],data['jobTitle'],data['contact'],data['password'],data['address'],data['email'])
+        flash('Employee account created successfully!', 'success')
+        return redirect('/managerDashboard')
+    # return render_template('signup.html'
 
 
-# @index_views.route('/managerDashboard', methods=['GET'])
-# def managerDash():
-#     user = session.get('username')  # Retrieve user info from the session
-
-#     print("user is ", user)
-#     manager = Manager.query.filter_by(username=user).first()
-#     # print(manager)
-#     if manager and manager.managerCheck==True:
-#         managerr=[]
-#         all_managers = Manager.query.all()
-        
-#         for m in all_managers:
-#             manager_dict = {
-#                 'id': m.id,
-#                 'username': m.username,
-#                 'jobTitle': m.jobTitle,
-#                 'contact': m.contact,
-#                 'address':m.address,
-#                 'employees': m.employees
-#             }
-#             managerr.append(manager_dict)
-
-#         print (managerr)
-#         # print (manager)
-#         return render_template('managerDashboard.html', managerr=managerr)
-#     else:
-#         flash('You are not authorized to access this page, please login again.', 'danger')
-#         return redirect('/login')
-#     #  return render_template('managerdashboard.html', managers=managers)
 
 @index_views.route('/managerDashboard', methods=['GET'])
 def managerDash():
@@ -122,7 +126,6 @@ def managerDash():
 
     print("user is ", user)
     manager = Manager.query.filter_by(username=user).first()
-    # print(manager)
     if manager and manager.managerCheck==True:
         managerr = {
             'id': manager.id,

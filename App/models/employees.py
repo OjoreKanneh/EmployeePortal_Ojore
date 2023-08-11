@@ -8,7 +8,7 @@ class Employee(db.Model):
     __tablename__ = 'employees'
     
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
+    username = db.Column(db.String(100), nullable=False)
     manager_id=db.Column(db.Integer, db.ForeignKey('managers.id'))
     # manager = db.relationship('Manager', backref='manager_employees')
     jobTitle=db.Column(db.String(100),unique=False, nullable=False)
@@ -16,7 +16,7 @@ class Employee(db.Model):
     password = db.Column(db.String(128), nullable=False)
     managerCheck = db.Column(db.Boolean, default=True, nullable=False)  # 'employee' or 'manager'
     address=db.Column(db.String(100), unique=False, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
 
     vacationDays= db.relationship('Vacation', backref='user', lazy=True)
     

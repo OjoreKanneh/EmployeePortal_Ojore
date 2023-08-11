@@ -1,0 +1,11 @@
+/* Add styling to the employee links */
+.employee-link {
+    color: #338a7b; /* Set the color to match the page's color scheme */
+    text-decoration: underline; /* Underline the link text */
+    transition: color 0.2s; /* Add a smooth color transition on hover */
+  }
+  
+  .employee-link:hover {
+    color: #236c60; /* Change the color on hover for better visibility */
+    text-decoration: none; /* Remove underline on hover */
+  }

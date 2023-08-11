@@ -18,6 +18,8 @@ def initialize():
     db.create_all()
     create_manager('bob', 'bobpass','supervisor','2732761','street','Bob','Smith','bob@tis.com')
     create_employee('ojoree',1,'intern','277900','ojore','street','ojoree@tis.com')
+    create_employee('rob',1,'programmer','277950','bobpass','street','rob@tis.com')
+
     print('database intialized')
 
 '''
@@ -58,9 +60,17 @@ user_cli = AppGroup('employee', help='User object commands')
 # Then define the command and any parameters and annotate it with the group (@)
 # @user_cli.command("create", help="Creates a user")
 # @click.argument("username", default="rob")
+# @click.argument("manager_id", default=1)
+# @click.argument("jobTitle", default="programmer")
+# @click.argument("contact", default=1234949)
 # @click.argument("password", default="robpass")
-# def create_user_command(username, password):
-#     create_user(username, password)
+# @click.argument("address", default="road")
+# @click.argument("email", default="rob@tis.com")
+
+
+
+# def create_user_command(username, manager_id,jobTitle,contact,password,address,email):
+#     create_user(username, manager_id,jobTitle,contact,password,address,email)
 #     print(f'{username} created!')
 
 # this command will be : flask user create bob bobpass
