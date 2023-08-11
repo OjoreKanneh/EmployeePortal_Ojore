@@ -7,6 +7,9 @@
   <!-- Include Materialize CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
+    /* Your custom styles here */
+
+    /* Style for flashed messages */
     .flash-messages {
       padding: 10px;
       background-color: #ffebee; /* Light red color, you can adjust this */
@@ -15,11 +18,13 @@
       margin-bottom: 20px;
     }
 
+    /* Style for the signup box */
     .signup-box {
-      background-color: #d7f0ed;
-      padding: 100px;
-      border-radius: 50px;
+      background-color: #f6f6f6;
+      padding: 50px; /* Slightly reduce padding for a more compact look */
+      border-radius: 10px;
       margin-top: 30px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     }
     .signup-box input {
       margin-bottom: 10px;
@@ -27,18 +32,30 @@
     .green-nav {
       background-color: #338a7b; /* Adjust the color as needed */
     }
+
+    /* Style for signup button */
+    .signup-btn {
+      background-color: #338a7b; /* Same as navigation bar color */
+      color: #ffffff; /* White text */
+      border-radius: 20px; /* Rounded corners */
+      padding: 10px 20px; /* Some padding for the button */
+      font-weight: bold;
+    }
+
+    /* Style for center-aligned text */
+    .center-align-text {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <nav class="green-nav">
     <div class="nav-wrapper">
       <div class="container">
-        <a href="#" class="brand-logo">Manager-Sign Up </a>
+        <a href="#" class="brand-logo">Manager-Sign Up</a>
       </div>
     </div>
   </nav>
-
-
 
   <div class="container">
     <!-- Flashed messages -->
@@ -46,12 +63,11 @@
     {% if messages %}
     <div class="flash-messages">
       {% for message in messages %}
-      <p>{{ message }}</p>  
+      <p>{{ message }}</p>
       {% endfor %}
     </div>
     {% endif %}
     {% endwith %}
-
 
     <div class="row">
       <div class="col s12 m6 offset-m3 signup-box">
@@ -89,14 +105,12 @@
             <label for="address">Address</label>
           </div>
           <div class="center-align">
-            <button class="btn waves-effect waves-light" type="submit" name="action" value="signup">Sign Up
-              <i class="material-icons right"></i>
-            </button>
+            <button class="btn waves-effect waves-light signup-btn" type="submit" name="action" value="signup">Sign Up</button>
           </div>
         </form>
-
-        <p class="center-align">Already have an account? <a href="/login">Login here</a></p>
-        <p class="center-align">Return to <a href="/">Home</a></p>
+        
+        <p class="center-align-text">Already have an account? <a href="/login">Login here</a></p>
+        <p class="center-align-text">Return to <a href="/">Home</a></p>
       </div>
     </div>
   </div>

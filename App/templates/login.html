@@ -18,17 +18,33 @@
       margin-bottom: 20px;
     }
 
+    /* Style for the login box */
     .login-box {
-      background-color: #d7f0ed;
-      padding: 100px;
-      border-radius: 50px;
+      background-color: #f6f6f6; /* White background */
+      padding: 30px;
+      border-radius: 10px;
       margin-top: 30px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     }
     .login-box input {
       margin-bottom: 10px;
     }
     .green-nav {
       background-color: #338a7b; /* Adjust the color as needed */
+    }
+
+    /* Style for login button */
+    .login-btn {
+      background-color: #338a7b; /* Same as navigation bar color */
+      color: #ffffff; /* White text */
+      border-radius: 20px; /* Rounded corners */
+      padding: 10px 20px; /* Some padding for the button */
+      font-weight: bold;
+    }
+
+    /* Style for center-aligned text */
+    .center-align-text {
+      text-align: center;
     }
   </style>
 </head>
@@ -65,13 +81,10 @@
             <label for="password">Password</label>
           </div>
           <div class="center-align">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Login
-              <i class="material-icons right"></i>
-            </button>
+            <button class="btn waves-effect waves-light login-btn" type="submit" name="action">Login</button>
           </div>
         </form>
-        <!-- <p class="center-align">dont account? <a href="/login">Login here</a></p> -->
-        <p class="center-align">Return to <a href="/">Home</a></p>
+        <p class="center-align-text">Return to <a href="/">Home</a></p>
       </div>
     </div>
   </div>
