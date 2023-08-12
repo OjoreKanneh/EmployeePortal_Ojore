@@ -5,7 +5,7 @@ class Vacation(db.Model):
     __tablename__ = 'vacations'
     
     id = db.Column(db.Integer, primary_key=True)
-    employee_id=db.Column(db.Integer, db.ForeignKey('employees.id'), unique=True)
+    employee_id=db.Column(db.Integer, db.ForeignKey('employees.id'))
     # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
