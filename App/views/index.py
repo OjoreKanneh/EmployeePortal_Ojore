@@ -108,13 +108,15 @@ def employeeCreate():
                     'firstName': manager.firstName,
                     'lastName': manager.lastName,
                     'email':manager.email
+                    # 'vactaionDaysNum':manager.vactaionDaysNum
                 }
             email_error = 'An account with this email already exists. Please use a different email.'
-            # flash('An account with this email already exists. Please use a different email.', 'danger')
+            flash('An account with this email already exists. Please use a different email.', 'danger')
             # form_data=data
-            return render_template('managerDashboard.html',email_error=email_error,managerr=managerr)
+            return render_template('managerDashboard.html',managerr=managerr)
 
-        newEmployee=create_employee(data['username'],data['manager_id'],data['jobTitle'],data['contact'],data['password'],data['address'],data['email'])
+        
+        newEmployee=create_employee(data['username'],data['manager_id'],data['jobTitle'],data['contact'],data['password'],data['address'],data['email'],data['vactaionDaysNum'])
         flash('Employee account created successfully!', 'success')
         return redirect('/managerDashboard')
     # return render_template('signup.html'
@@ -138,6 +140,7 @@ def managerDash():
             'firstName': manager.firstName,
             'lastName': manager.lastName,
             'email':manager.email
+            # 'vactaionDaysNum':manager.vactaionDaysNum
         }
         print (managerr)
         # print (manager)

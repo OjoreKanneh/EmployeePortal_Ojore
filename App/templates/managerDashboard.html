@@ -36,6 +36,7 @@
   <div class="col s12 m6">
     <h5>Create a New Employee in your department</h5>
     <span class="error-message">{{ email_error }}</span>
+    <span class="error-message">{{ messagee }}</span>
     <form method="POST" action="/create_employee">
       <!-- Include hidden input field for manager's ID -->
       <input type="hidden" name="manager_id" value="{{ managerr['id'] }}">
@@ -59,6 +60,9 @@
       </div>
       <div class="input-field">
         <input type="email" name="email" placeholder="Email">
+      </div>
+      <div class="input-field">
+        <input type="number" name="vactaionDaysNum" placeholder="vactaion Days">
       </div>
       <div class="center-align">
         <button class="btn waves-effect waves-light" type="submit" name="action">Create Employee</button>
@@ -84,6 +88,7 @@
                 <p>Address: {{ employee['address'] }}</p>
                 <p>Contact: {{ employee['contact'] }}</p>
                 <p>Email: {{ employee['email'] }}</p>
+                <p>Vacation Days: {{ employee['vactaionDaysNum'] }}</p>
 
 
               </div>
