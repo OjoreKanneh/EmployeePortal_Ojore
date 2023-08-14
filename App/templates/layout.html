@@ -25,7 +25,7 @@
         flashMessages.forEach(function(message) {
           message.style.display = 'none';
         });
-      }, 3000); // 5000 milliseconds = 5 seconds
+      }, 5000); // 5000 milliseconds = 5 seconds
     </script>
 
   </head>
@@ -44,10 +44,10 @@
     </nav>
     
     <!-- Top flash message box -->
-  <<div style="position: fixed; top: 0; width: 100%; z-index: 1000;">
+  <div style="position: fixed; top: 0; width: 100%; z-index: 1000;">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <div class="flash-message" style="padding: 5px; background-color: #ffebee; color: #c62828; border-radius: 0; text-align: center; font-size: 12px;">
+        <div class="flash-message" style="padding: 10px; background-color: #f0c5cb; color: #f11717; border-radius: 0; text-align: center; font-size: 12px;">
           {% for message in messages %}
             <p>{{ message }}</p>
           {% endfor %}

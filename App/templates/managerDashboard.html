@@ -160,10 +160,10 @@
                   <span class="employee-link" style="font-size: 1.9em; color: #4ea8be;">Employee name: {{ employee['username'] }}</span>
                   
                   <p>Email: {{ employee['email'] }}</p>
-                
+                  <p>Vacation Days: {{ employee['vactaionDaysNum'] }}</p>
                 </div>
                 <div class="col s3 center-align">
-                  <a class="btn waves-effect waves-light" href="/vacation_info/{{ employee['id'] }}">Vacation Info</a>
+                  <a class="btn waves-effect waves-light" href="/vacation_info/{{ employee['id'] }}"> See Vacation Request</a>
                 </div>
               </div>
             </li>
