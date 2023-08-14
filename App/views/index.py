@@ -180,13 +180,19 @@ def search_employee():
             return redirect('/managerDashboard')
 
         return render_template('managerDashboard.html', managerr=managerr, searched_employee=searched_employee)
-    # else:
-    #     flash('no user with this email', 'danger')
-    #     return redirect('/managerDashboard')
 
-
-    
     return render_template('managerDashboard.html', managerr=managerr, searched_employee=searched_employee)
+
+
+@index_views.route('/accept_vacation/<int:vacation_id>')
+def accept_vacation(vacation_id):
+    print("vacation id is ",vacation_id)
+    vacation=get_vacations_for_id(vacation_id)
+    print(vacation)
+    # if vacation:
+    #     vacation.approved=False 
+    # return redirect(url_for('vacation_info', employee_id=vacation['employee_id']))
+    return redirect('/managerDashboard')
 
 @index_views.route('/', methods=['GET'])
 def home_page():
