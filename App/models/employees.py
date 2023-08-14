@@ -45,7 +45,8 @@ class Employee(db.Model):
             'managerCheck': self.managerCheck,
             'address': self.address,
             'email': self.email,
-            'vacationDays': [vacationDays.toJSON() for vacationDay in self.vacationDays],
+            'vacationDays': [vacationDay.get_json() for vacationDay in self.vacationDays],
             'vactaionDaysNum': self.vactaionDaysNum
             # You can add other attributes as needed
         }
+
