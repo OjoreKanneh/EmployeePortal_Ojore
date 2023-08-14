@@ -72,13 +72,13 @@
 </div>
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="col s12">
-    <h5>List of Employees in your department</h5>
-    {% if managerr['employees'] %}
-      <ul class="collection">
-        {% for employee in managerr['employees'] %}
-          <li class="collection-item">
+    <h5>List of Employees in your department</h5> -->
+    <!-- {% if managerr['employees'] %} -->
+      <!-- <ul class="collection"> -->
+        <!-- {% for employee in managerr['employees'] %} -->
+          <!-- <li class="collection-item">
             <div class="row valign-wrapper">
               <div class="col s9">
                 <span class="employee-link" style="font-size: 1.9em; color: #4ea8be;">{{ employee['username'] }}</span>
@@ -93,17 +93,59 @@
 
               </div>
               <div class="col s3 center-align">
-                <a class="btn waves-effect waves-light" href="/vacation_info/{{ employee['id'] }}">Vacation Info</a>
+                <a class="btn waves-effect waves-light" href="/vacation_info/{{ employee['id'] }}">Vacation Info</a> -->
                 <!-- <a class="btn waves-effect waves-light" href="#">Payment Info</a> -->
-              </div>
+              <!-- </div>
             </div>
-          </li>
-        {% endfor %}
+          </li> -->
+        <!-- {% endfor %} -->
+      <!-- </ul> -->
+    <!-- {% else %} -->
+      <!-- <p>No employees currently under this manager's management</p> -->
+    <!-- {% endif %} -->
+  <!-- </div>
+</div> -->
+
+<div class="row">
+  <div class="col s12">
+    <h5>Search Employees by Email</h5>
+    <form method="GET" action="/search_employee">
+      <div class="input-field">
+        <input type="email" name="email" placeholder="Enter Email to Search">
+      </div>
+      <div class="center-align">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Search</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    {% if searched_employee %}
+      <ul class="collection">
+        <li class="collection-item">
+          <div class="row valign-wrapper">
+            <div class="col s9">
+              <span class="employee-link" style="font-size: 1.9em; color: #4ea8be;">{{ searched_employee['username'] }}</span>
+              <p>Job Title: {{ searched_employee['jobTitle'] }}</p>
+              <p>Contact: {{ searched_employee['contact'] }}</p>
+              <p>Address: {{ searched_employee['address'] }}</p>
+              <p>Email: {{ searched_employee['email'] }}</p>
+              <p>Vacation Days: {{ searched_employee['vactaionDaysNum'] }}</p>
+            </div>
+            <div class="col s3 center-align">
+              <a class="btn waves-effect waves-light" href="/vacation_info/{{ searched_employee['id'] }}">Vacation Info</a>
+              <a class="btn waves-effect waves-light" href="/managerDashboard">Collapse Search Employee</a>
+            </div>
+          </div>
+        </li>
       </ul>
     {% else %}
-      <p>No employees currently under this manager's management</p>
+      <!-- <p>No employee found for the provided email.</p> -->
     {% endif %}
   </div>
 </div>
+
 
 {% endblock %}

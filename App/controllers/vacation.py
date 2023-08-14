@@ -31,6 +31,9 @@ def create_vacation(employee_id, start_date, end_date,vacationNum):
         db.session.commit()
     return new_vacation
 
+def get_vacations_for_employee_id(employee_id):
+    return Vacation.query.filter_by(employee_id=employee_id).all()
+
 
 def get_all_vacation_json():
     vacations=Vacation.query.all()

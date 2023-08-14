@@ -7,9 +7,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
-from App.models import db,Manager,Employee
-from App.controllers import create_user, create_manager,create_employee
-from App.controllers import get_all_managers_json,get_manager_by_username_json
+from App.models import db,Manager,Employee,Vacation
+# from App.controllers import create_user, create_manager,create_employee,create_vacation
+# from App.controllers import get_all_managers_json,get_manager_by_username_json
+
+from App.controllers import *
 
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
@@ -150,6 +152,41 @@ def managerDash():
         return redirect('/login')
 
 
+
+
+@index_views.route('/vacation_info/<int:employee_id>')
+def vacation_info(employee_id):
+    # Assuming you have a function to fetch employee and vacation information
+    employee = get_employee_by_id(employee_id)
+    vacations = get_vacations_for_employee_id(employee_id)
+    
+    return render_template('vacation_info.html', employee=employee, vacations=vacations)
+
+@index_views.route('/search_employee', methods=['GET'])
+def search_employee():
+    user = session.get('username')  # Retrieve user info from the session
+
+    print("user is for search", user)
+    email = request.args.get('email', '').strip()
+    searched_employee = None
+    print("email is ",email)
+    
+    if email:
+        searched_employee = get_employee_by_email(email)  # Replace with your function to get employee by email
+        print(" searched employee is ",searched_employee)
+        managerr=get_manager_dict(user)
+        if searched_employee is None:
+            flash('No user with this email', 'danger')
+            return redirect('/managerDashboard')
+
+        return render_template('managerDashboard.html', managerr=managerr, searched_employee=searched_employee)
+    # else:
+    #     flash('no user with this email', 'danger')
+    #     return redirect('/managerDashboard')
+
+
+    
+    return render_template('managerDashboard.html', managerr=managerr, searched_employee=searched_employee)
 
 @index_views.route('/', methods=['GET'])
 def home_page():

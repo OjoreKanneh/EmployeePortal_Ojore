@@ -33,6 +33,13 @@ def create_employee(username, manager_id, jobTitle,contact,password,address, ema
         db.session.commit()
     return new_employee
 
+
+def get_employee_by_id(id):
+    return Employee.query.filter_by(id=id).first()
+
+def get_employee_by_email(email):
+    return Employee.query.filter_by(email=email).first()
+
 def get_all_employees_json():
     employees=Employee.query.all()
     if not employees:
