@@ -15,4 +15,20 @@ def get_manager_dict(name):
         'email':manager.email
         # 'vactaionDaysNum':manager.vactaionDaysNum
     }
-    return manager
+    return managerr
+
+
+def get_employee_dict(name):
+    employee = Employee.query.filter_by(username=name).first()
+    employee = {
+        'id': employee.id,
+        'username': employee.username,
+        'jobTitle': employee.jobTitle,
+        'contact': employee.contact,
+        'address': employee.address,
+        'email': employee.email,
+        'vactaionDaysNum': employee.vactaionDaysNum,
+        'vacationDays': employee.vacationDays,
+        'vacationRequest':employee.vacationRequest
+    }
+    return employee

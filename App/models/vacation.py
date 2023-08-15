@@ -11,6 +11,7 @@ class Vacation(db.Model):
     end_date = db.Column(db.Date, nullable=False)
     approved = db.Column(db.Boolean, default=False)
     vacationNum= db.Column(db.Integer, nullable=True)
+    
 
     def __init__(self,employee_id, start_date, end_date,approved, vacationNum):
         self.employee_id=employee_id

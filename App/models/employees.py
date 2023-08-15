@@ -18,10 +18,10 @@ class Employee(db.Model):
     address=db.Column(db.String(100), unique=False, nullable=False)
     email = db.Column(db.String(100), nullable=False)
     vactaionDaysNum= db.Column(db.Integer, nullable=True)
-
     vacationDays= db.relationship('Vacation', backref='user', lazy=True)
+    vacationRequest= db.Column(db.Boolean, default=False)
     
-    def __init__(self, manager_id,username, password, jobTitle, contact, managerCheck, address,email,vactaionDaysNum):
+    def __init__(self, manager_id,username, password, jobTitle, contact, managerCheck, address,email,vactaionDaysNum,vacationRequest):
         self.username = username
         self.manager_id=manager_id
         self.jobTitle = jobTitle
@@ -31,6 +31,7 @@ class Employee(db.Model):
         self.address = address
         self.email=email
         self.vactaionDaysNum=vactaionDaysNum
+        self.vacationRequest=vacationRequest
 
     def check_password(self, password):
                 return check_password_hash(self.password_hash, password)
@@ -46,7 +47,8 @@ class Employee(db.Model):
             'address': self.address,
             'email': self.email,
             'vacationDays': [vacationDay.get_json() for vacationDay in self.vacationDays],
-            'vactaionDaysNum': self.vactaionDaysNum
+            'vactaionDaysNum': self.vactaionDaysNum,
+            'vacationRequest':self.vacationRequest
             # You can add other attributes as needed
         }
 

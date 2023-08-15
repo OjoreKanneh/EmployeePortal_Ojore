@@ -9,7 +9,7 @@ from App.database import db
 #     return new_employee
 
 
-def create_employee(username, manager_id, jobTitle,contact,password,address, email,vactaionDaysNum):
+def create_employee(username, manager_id, jobTitle,contact,password,address, email,vactaionDaysNum,vacationRequest):
     new_employee = Employee(
         username=username,
         manager_id=manager_id,
@@ -19,7 +19,8 @@ def create_employee(username, manager_id, jobTitle,contact,password,address, ema
         managerCheck=False,
         address=address,
         email=email,
-        vactaionDaysNum=vactaionDaysNum
+        vactaionDaysNum=vactaionDaysNum,
+        vacationRequest=vacationRequest
     )
 
     db.session.add(new_employee)

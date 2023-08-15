@@ -5,7 +5,7 @@ from flask import Blueprint, redirect, render_template, request, send_from_direc
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-
+from datetime import datetime 
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user,logout_user
 from App.models import db,Manager,Employee,Vacation
 # from App.controllers import create_user, create_manager,create_employee,create_vacation
@@ -126,7 +126,7 @@ def employeeCreate():
             return render_template('managerDashboard.html',managerr=managerr)
 
         
-        newEmployee=create_employee(data['username'],data['manager_id'],data['jobTitle'],data['contact'],data['password'],data['address'],data['email'],data['vactaionDaysNum'])
+        newEmployee=create_employee(data['username'],data['manager_id'],data['jobTitle'],data['contact'],data['password'],data['address'],data['email'],data['vactaionDaysNum'],False)
         flash('Employee account created successfully!', 'success')
         return redirect('/managerDashboard')
     # return render_template('signup.html'
@@ -205,12 +205,22 @@ def accept_vacation(employee_id, vacation_id, duration):
 
     if vacation:
         # Delete the vacation record
-        db.session.delete(vacation)
+        # db.session.delete(vacation)
 
-        employee.vactaionDaysNum -= duration
-        db.session.commit()
+        if (employee.vactaionDaysNum - duration) >= 0:
+            employee.vactaionDaysNum -= duration
+            employee.vacationRequest = False
+            vacation.approved=True
+            db.session.commit()
+            flash('Vacation request approved and deleted.', 'success')
+            return redirect('/managerDashboard')
 
-        flash('Vacation request approved and deleted.', 'success')
+            
+        else:
+            flash('Insufficient vacation days for this request.', 'danger')
+            employee_dict=get_employee_dict(employee.username)
+            return render_template('vacation_info.html', employee=employee_info)
+
     else:
         flash('Vacation request not found.', 'danger')
 
@@ -272,7 +282,7 @@ def employeeDashboard():
 
 
 # subbmit vacation
-@index_views.route('/submit_vacation', methods=['POST'])
+@index_views.route('/submit_vacation/<int:employee_id>', methods=['POST'])
 def submit_vacation(employee_id):
     if request.method == 'POST':
         start_date = request.form['start_date']
@@ -288,7 +298,13 @@ def submit_vacation(employee_id):
             flash('Cannot request vacation. Not enough vacation days available.', 'danger')
             return redirect('/employeeDashboard')
 
+
         newVacation=create_vacation(employee_id, start_date, end_date,10)
+
+        employee.vactaionDaysNum -= duration
+        employee.vacationRequest=True
+        db.session.commit()
+        flash('Vacation request submitted successfully!', 'success')
         
         # Perform any necessary processing or database updates here
         # For example, create a new vacation record for the employee
