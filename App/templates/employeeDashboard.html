@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block title %}Employee Dashboard{% endblock %}
+{% block page %}Employee Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="card teal lighten-3">
+        <div class="card-content white-text">
+          <span class="card-title">{{ employee['username'] }}'s Information</span>
+        </div>
+        <div class="card-content">
+          <ul class="collection with-header">
+            <li class="collection-item your-info">Employee ID: {{ employee['id'] }}</li>
+            <li class="collection-item your-info">Username: {{ employee['username'] }}</li>
+            <li class="collection-item your-info">Job Title: {{ employee['jobTitle'] }}</li>
+            <li class="collection-item your-info">Contact: {{ employee['contact'] }}</li>
+            <li class="collection-item your-info">Address: {{ employee['address'] }}</li>
+            <li class="collection-item your-info">Email: {{ employee['email'] }}</li>
+            <li class="collection-item your-info">Vacation Days: {{ employee['vactaionDaysNum'] }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card teal lighten-3">
+        <div class="card-content white-text">
+          <span class="card-title">Vacation Days</span>
+        </div>
+        <div class="card-content">
+          {% if employee['vacationDays'] %}
+            <ul class="collection">
+              {% for vacation_day in employee['vacationDays'] %}
+                <li class="collection-item">
+                  <div class="row valign-wrapper">
+                    <div class="col s12">
+                      <p><i class="material-icons left">date_range</i> Start Date: {{ vacation_day['start_date'] }}</p>
+                      <p><i class="material-icons left">date_range</i> End Date: {{ vacation_day['end_date'] }}</p>
+                      <p><i class="material-icons left">check_circle</i> Status: {% if vacation_day['approved'] %} Approved {% else %} Pending {% endif %}</p>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No vacation days available for this employee.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <div class="card teal lighten-3">
+        <div class="card-content white-text">
+          <span class="card-title">Request Vacation</span>
+        </div>
+        <div class="card-content">
+            <form method="POST" action="/submit_vacation/{{ employee['id'] }}">
+                <div class="input-field">
+                  <input type="date" id="start_date" name="start_date" class="validate white-text" required>
+                  <label for="start_date">Start Date</label>
+                </div>
+                <div class="input-field">
+                  <input type="date" id="end_date" name="end_date" class="validate white-text" required>
+                  <label for="end_date">End Date</label>
+                </div>
+                <div class="center-align">
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit Request</button>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

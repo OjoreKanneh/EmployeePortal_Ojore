@@ -21,7 +21,7 @@ def initialize():
     end_date = date(2023, 8, 20)
     create_manager('bob', 'bobpass','supervisor','2732761','street','Bob','Smith','bob@tis.com')
     create_employee('ojoree',1,'intern','277900','ojore','street','ojoree@tis.com',20)
-    create_employee('rob',1,'programmer','277950','bobpass','street','rob@tis.com',20)
+    create_employee('rob',1,'programmer','277950','robpass','street','rob@tis.com',20)
     create_vacation(1,start_date,end_date,20)
     print('database intialized')
 

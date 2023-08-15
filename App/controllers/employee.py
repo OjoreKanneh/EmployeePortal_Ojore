@@ -37,6 +37,13 @@ def create_employee(username, manager_id, jobTitle,contact,password,address, ema
 def get_employee_by_id(id):
     return Employee.query.filter_by(id=id).first()
 
+def get_employee_by_id(id):
+    return Employee.query.filter_by(id=id).first()
+
+def get_employee_by_username(username):
+    return Employee.query.filter_by(username=username).first()
+
+
 def get_employee_by_email(email):
     return Employee.query.filter_by(email=email).first()
 

@@ -60,7 +60,14 @@ def login():
     if request.method == 'POST':
         data=request.form
         print("Received form data:", data)
+        email=data['email']
         user = Manager.query.filter_by(email=data['email']).first()
+        if user is None:
+            user=get_employee_by_email(email)
+
+        
+     
+        print(user)
 
         if user and check_password_hash(user.password,data['password']):
         #     # login_user(user)
@@ -71,7 +78,8 @@ def login():
                 session['username'] = user.username # Store user info in the session
                 return redirect('/managerDashboard')
             else:
-                return redirect ('/hello')
+                session['username'] = user.username
+                return redirect ('/employeeDashboard')
         else:
             flash('Invalid email or passwordd. Please try again.', 'danger')
 
@@ -154,6 +162,7 @@ def managerDash():
 
 
 
+
 @index_views.route('/vacation_info/<int:employee_id>')
 def vacation_info(employee_id):
     # Assuming you have a function to fetch employee and vacation information
@@ -184,15 +193,33 @@ def search_employee():
     return render_template('managerDashboard.html', managerr=managerr, searched_employee=searched_employee)
 
 
-@index_views.route('/accept_vacation/<int:vacation_id>')
-def accept_vacation(vacation_id):
+@index_views.route('/accept_vacation/<int:employee_id>/<int:vacation_id>/<int:duration>')
+def accept_vacation(employee_id, vacation_id, duration):
     print("vacation id is ",vacation_id)
-    vacation=get_vacations_for_id(vacation_id)
+
+    vacation = Vacation.query.get(vacation_id)
+    # vacation=get_vacations_for_id(vacation_id)
     print(vacation)
+
+    employee=get_employee_by_id(employee_id)
+
+    if vacation:
+        # Delete the vacation record
+        db.session.delete(vacation)
+
+        employee.vactaionDaysNum -= duration
+        db.session.commit()
+
+        flash('Vacation request approved and deleted.', 'success')
+    else:
+        flash('Vacation request not found.', 'danger')
+
+    return redirect('/managerDashboard')
+
     # if vacation:
     #     vacation.approved=False 
     # return redirect(url_for('vacation_info', employee_id=vacation['employee_id']))
-    return redirect('/managerDashboard')
+    # return redirect('/managerDashboard')
 
 @index_views.route('/', methods=['GET'])
 def home_page():
@@ -210,3 +237,61 @@ def init():
 @index_views.route('/health', methods=['GET'])
 def health_check():
     return jsonify({'status':'healthy'})
+
+
+
+# EMPLOYEE ROUTES
+
+# dashboard route
+@index_views.route('/employeeDashboard', methods=['GET'])
+def employeeDashboard():
+    user = session.get('username')  # Retrieve user info from the session
+
+    employee = get_employee_by_username(user)  # Replace with your function to get employee by username
+    print("employee is ",employee)
+
+    if employee:
+        employee_info = {
+            'id': employee.id,
+            'username': employee.username,
+            'jobTitle': employee.jobTitle,
+            'contact': employee.contact,
+            'address': employee.address,
+            'email': employee.email,
+            'vactaionDaysNum': employee.vactaionDaysNum,
+            'vacationDays': employee.vacationDays # Assuming you have this attribute
+        }
+
+        # Assuming you also have a function to get employee's vacation history
+       # employee_vacations = get_employee_vacations(employee.id)
+
+        return render_template('employeeDashboard.html', employee=employee_info ) #, vacations=employee_vacations)
+    else:
+        flash('You are not authorized to access this page, please login again.', 'danger')
+        return redirect('/login')
+
+
+# subbmit vacation
+@index_views.route('/submit_vacation', methods=['POST'])
+def submit_vacation(employee_id):
+    if request.method == 'POST':
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+        duration = (end_date - start_date).days + 1  # Including both start and end days
+
+        employee= get_employee_by_id(employee_id)
+
+        if duration > employee.vactaionDaysNum:
+            flash('Cannot request vacation. Not enough vacation days available.', 'danger')
+            return redirect('/employeeDashboard')
+
+        newVacation=create_vacation(employee_id, start_date, end_date,10)
+        
+        # Perform any necessary processing or database updates here
+        # For example, create a new vacation record for the employee
+        
+        # After processing, you can redirect the user to a relevant page
+        return redirect('/employeeDashboard')
