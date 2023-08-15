@@ -9,6 +9,7 @@ def create_vacation(employee_id, start_date, end_date,vacationNum):
         start_date=start_date,
         end_date=end_date,
         approved=False,
+        rejected=False,
         vacationNum=vacationNum
     )
     db.session.add(new_vacation)

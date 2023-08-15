@@ -226,10 +226,24 @@ def accept_vacation(employee_id, vacation_id, duration):
 
     return redirect('/managerDashboard')
 
-    # if vacation:
-    #     vacation.approved=False 
-    # return redirect(url_for('vacation_info', employee_id=vacation['employee_id']))
-    # return redirect('/managerDashboard')
+
+@index_views.route('/reject_vacation/<int:employee_id>/<int:vacation_id>', methods=['GET'])
+def reject_vacation(employee_id,vacation_id):
+    vacation = Vacation.query.get(vacation_id)
+    employee=get_employee_by_id(employee_id)
+
+    vacation.rejected=True
+    employee.vacationRequest = False
+    db.session.commit()
+
+    flash('Vacation request rejected.', 'warning')
+    return redirect('/managerDashboard')
+
+
+
+
+
+
 
 @index_views.route('/', methods=['GET'])
 def home_page():
