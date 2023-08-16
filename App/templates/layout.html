@@ -34,14 +34,18 @@
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
-            <ul id="nav-mobile" class="left">
-                <li><a href="/managerDashboard">Home</a></li>
-                <li><a href="/users">Users Jinja</a></li>
-                <li><a href="/static/users">Users JS</a></li>
-            </ul>
+          <ul id="nav-mobile" class="left">
+            <li><a href="/managerDashboard">Home</a></li>
+            <li><a href="/users">Users Jinja</a></li>
+            <li><a href="/static/users">Users JS</a></li>
+          </ul>
+          <ul id="nav-mobile" class="right">
+            <li><a href="/">Logout</a></li>
+          </ul>
         </div>
       </div>
     </nav>
+    
     
     <!-- Top flash message box -->
   <div style="position: fixed; top: 0; width: 100%; z-index: 1000;">

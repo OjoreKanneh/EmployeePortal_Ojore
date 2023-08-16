@@ -57,6 +57,7 @@ def signup():
 
 @index_views.route('/login', methods=['GET', 'POST'])
 def login():
+    session.clear()
     if request.method == 'POST':
         data=request.form
         print("Received form data:", data)
