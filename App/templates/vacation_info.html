@@ -46,7 +46,7 @@
                         <p><i class="material-icons left">event_note</i> Duration: {{ (vacation['end_date'] - vacation['start_date']).days + 1 }} days</p>
                         <div class="row">
                           <div class="col s12">
-                            <a class="btn waves-effect waves-light green" href="/accept_vacation/{{ employee['id'] }}/{{ vacation['id'] }}/{{ (vacation['end_date'] - vacation['start_date']).days +1}}" onclick="return confirmApprove('{{ vacation['id'] }}')">Approve</a>
+                            <a class="btn waves-effect waves-light green" href="/accept_vacation/{{ employee['id'] }}/{{ vacation['id'] }}/{{ (vacation['end_date'] - vacation['start_date']).days +1}}" onclick="return confirmApprove('{{ vacation[id] }}')">Approve</a>
                             <a class="btn waves-effect waves-light red" href="/reject_vacation/{{ employee['id'] }}/{{ vacation['id'] }}">Don't Approve</a>
                           </div>
                         </div>
