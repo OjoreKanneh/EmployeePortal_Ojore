@@ -315,7 +315,7 @@ def submit_vacation(employee_id):
 
         newVacation=create_vacation(employee_id, start_date, end_date,10)
 
-        employee.vactaionDaysNum -= duration
+        # employee.vactaionDaysNum -= duration
         employee.vacationRequest=True
         db.session.commit()
         flash('Vacation request submitted successfully!', 'success')

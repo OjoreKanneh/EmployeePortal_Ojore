@@ -76,4 +76,34 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
+
+    startDateInput.addEventListener('change', function() {
+      const currentDate = new Date();
+      const selectedStartDate = new Date(this.value);
+
+      if (selectedStartDate < currentDate) {
+        alert('Start date cannot be in the past.');
+        this.value = ''; // Clear the invalid date
+      }
+    });
+
+    endDateInput.addEventListener('change', function() {
+      const selectedStartDate = new Date(startDateInput.value);
+      const selectedEndDate = new Date(this.value);
+
+      if (selectedEndDate <= selectedStartDate) {
+        alert('End date must be after the start date.');
+        this.value = ''; // Clear the invalid date
+      }
+    });
+  });
+</script>
+
+
+
 {% endblock %}
