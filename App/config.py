@@ -1,5 +1,6 @@
 import os
 import importlib
+import pyodbc
 from datetime import timedelta
 
 # must be updated to inlude addtional secrets/ api keys & use a gitignored custom-config file instad
@@ -7,8 +8,8 @@ def load_config():
     config = {'ENV': os.environ.get('ENV', 'DEVELOPMENT')}
     delta = 7
     if config['ENV'] == "DEVELOPMENT":
-        from .default_config import JWT_ACCESS_TOKEN_EXPIRES, SQLALCHEMY_DATABASE_URI, SECRET_KEY
-        config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc://Ojore:Batman2725@DESKTOP-M8JVI32/master?driver=ODBC+Driver+17+for+SQL+Server"
+        from .default_config import JWT_ACCESS_TOKEN_EXPIRES, SECRET_KEY
+        config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc://Ojore:Batman2725@ojore-pc/test?driver=ODBC+Driver+17+for+SQL+Server"
         config['SECRET_KEY'] = SECRET_KEY
         delta = JWT_ACCESS_TOKEN_EXPIRES
     else:
