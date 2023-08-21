@@ -1,6 +1,6 @@
 import os
 import importlib
-
+from flask_mail import Mail, Message
 from datetime import timedelta
 
 # must be updated to inlude addtional secrets/ api keys & use a gitignored custom-config file instad
@@ -8,7 +8,7 @@ def load_config():
     config = {'ENV': os.environ.get('ENV', 'DEVELOPMENT')}
     delta = 7
     if config['ENV'] == "DEVELOPMENT":
-        from .default_config import JWT_ACCESS_TOKEN_EXPIRES, SQLALCHEMY_DATABASE_URI, SECRET_KEY
+        from .default_config import JWT_ACCESS_TOKEN_EXPIRES, SQLALCHEMY_DATABASE_URI, SECRET_KEY,MAIL_SERVER,MAIL_PORT, MAIL_USE_TLS,MAIL_USERNAME,MAIL_PASSWORD
         config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
         config['SECRET_KEY'] = SECRET_KEY
         delta = JWT_ACCESS_TOKEN_EXPIRES
@@ -18,6 +18,11 @@ def load_config():
         config['RAWG_TOKEN'] = os.environ.get('RAWG_TOKEN')
         config['DEBUG'] = config['ENV'].upper() != 'PRODUCTION'
         delta = int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES', 7))
+        config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+        config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+        config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() == 'true'
+        config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+        config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
     config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=int(delta))
     config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
