@@ -11,6 +11,7 @@ from flask_mail import Mail, Message  # Import Flask-Mail
 
 
 
+
 from App.database import init_db
 from App.config import config
 
@@ -25,7 +26,7 @@ from App.views import views
 
 
 
-def add_views(app):
+def add_views(app,):
     for view in views:
         app.register_blueprint(view)
 

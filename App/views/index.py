@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify, url_for, flash,session
+from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify, url_for, flash,session,current_app
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField,SubmitField
 # from wtforms.validators import InputRequired, length, ValidationError
@@ -10,31 +10,25 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, cur
 from App.models import db,Manager,Employee,Vacation
 # from App.controllers import create_user, create_manager,create_employee,create_vacation
 # from App.controllers import get_all_managers_json,get_manager_by_username_json
+from flask_mail import Message
+
 
 from App.controllers import *
 
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view="login"
+@index_views.route('/send_email')
+def send_email():
+    mail = current_app.extensions.get('mail')
+    if mail:
+        msg = Message("Test Email Subject", sender="from@example.com", recipients=["ojore@kanneh.com"])
+        msg.body = "This is a test email sent from Flask!"
+        mail.send(msg)
+        return "Email sent successfully!"
+    else:
+        return "Mail extension not found in current app."
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
-
-# class LoginForm(FlaskForm):
-#     username=StringField(validators=[InputRequired(),length(
-#         min=4, max=20)], render_kw={"placeholder": "Username"}
-#     )
-
-
-#     password=PasswordField(validators=[InputRequired(),length(
-#         min=4, max=20)], render_kw={"placeholder": "Password"}
-#     )
-
-#     submit=SubmitField("Login")
 
 
 @index_views.route('/signup', methods=['GET', 'POST'])
@@ -42,6 +36,7 @@ def signup():
     form_data = {}
     if request.method == 'POST':
         data=request.form
+        
         print("Received form data:", data)
         existing_manager = Manager.query.filter_by(email=data['email']).first()
         if existing_manager:
