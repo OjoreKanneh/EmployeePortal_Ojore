@@ -312,14 +312,12 @@ def submit_vacation(employee_id):
 
 
         newVacation=create_vacation(employee_id, start_date, end_date,10)
-        mail = current_app.extensions.get('mail')
-        print("hello hello")
-        print(mail)
-        if mail:
-            msg = Message("Test Email Subject", sender=employee.email, recipients=["ojore@kanneh.com"])
-            msg.body = f"{employee.username} is requesting a vacation"
-            mail.send(msg)
-
+        
+       
+        msg = Message("Employee Vacation Request", sender=employee.email, recipients=["ojore@kanneh.com"])
+        msg.body = f"{employee.username} is requesting a vacation"
+        mail.send(msg)
+        print("mail sent ")
         # employee.vactaionDaysNum -= duration
         employee.vacationRequest=True
         db.session.commit()
