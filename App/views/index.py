@@ -12,6 +12,8 @@ from App.models import db,Manager,Employee,Vacation
 # from App.controllers import get_all_managers_json,get_manager_by_username_json
 from flask_mail import Message
 
+from App.extensions import mail
+
 
 from App.controllers import *
 
@@ -20,14 +22,14 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
 @index_views.route('/send_email')
 def send_email():
-    mail = current_app.extensions.get('mail')
-    if mail:
+    # mail = current_app.extensions.get('mail')
+    # if mail:
         msg = Message("Test Email Subject", sender="from@example.com", recipients=["ojore@kanneh.com"])
         msg.body = "This is a test email sent from Flask!"
         mail.send(msg)
         return "Email sent successfully!"
-    else:
-        return "Mail extension not found in current app."
+    # else:
+        # return "Mail extension not found in current app."
 
 
 
@@ -310,11 +312,23 @@ def submit_vacation(employee_id):
 
 
         newVacation=create_vacation(employee_id, start_date, end_date,10)
+        mail = current_app.extensions.get('mail')
+        print("hello hello")
+        print(mail)
+        if mail:
+            msg = Message("Test Email Subject", sender=employee.email, recipients=["ojore@kanneh.com"])
+            msg.body = f"{employee.username} is requesting a vacation"
+            mail.send(msg)
 
         # employee.vactaionDaysNum -= duration
         employee.vacationRequest=True
         db.session.commit()
         flash('Vacation request submitted successfully!', 'success')
+        
+        
+        #     return "Email sent successfully!"
+        # else:
+        #     return "Mail extension not found in current app."
         
         # Perform any necessary processing or database updates here
         # For example, create a new vacation record for the employee

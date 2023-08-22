@@ -6,9 +6,9 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
-from flask_mail import Mail, Message  # Import Flask-Mail
+# from flask_mail import Mail, Message  # Import Flask-Mail
 
-
+from App.extensions import mail
 
 
 
@@ -40,7 +40,8 @@ def configure_app(app, config, overrides):
 def create_app(config_overrides={}):
     app = Flask(__name__, static_url_path='/static')
     configure_app(app, config, config_overrides)
-    mail=Mail(app)
+    # mail=Mail(app)
+    mail.init_app(app)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.config['SEVER_NAME'] = '0.0.0.0'
